@@ -5,7 +5,7 @@
                 <div class="card-body">
                     <h4>ENTER OTP CODE</h4>
                     <br/>
-                    <label>4 Digit Code Here</label>
+                    <label>6 Digit Code Here</label>
                     <input id="otp" placeholder="Code" class="form-control" type="text"/>
                     <br/>
                     <button onclick="VerifyOtp()"  class="btn w-100 float-end bg-gradient-primary">Next</button>
@@ -17,7 +17,7 @@
 <script>
    async function VerifyOtp() {
         let otp = document.getElementById('otp').value;
-        if(otp.length !==4){
+        if(otp.length !==6){
            errorToast('Invalid OTP')
         }
         else{
@@ -32,7 +32,7 @@
                 successToast(res.data['message'])
                 sessionStorage.clear();
                 setTimeout(() => {
-                    window.location.href='/resetPassword'
+                    window.location.href='/set-password'
                 }, 1000);
             }
             else{

@@ -37,17 +37,11 @@ class UserController extends Controller
         return view('pages.auth.set_password');
     }
 
-    // User Logout function
-    public function logout()
-    {
-        // auth()->logout();
-        return redirect('/');
-    }
 
     // Api Features functions
     public function userRegistration(Request $request)
     {
-        
+
 
         try {
             User::create([
@@ -75,15 +69,14 @@ class UserController extends Controller
     {
         $count = User::where('email', $request->input('email'))
             ->where('password', $request->input('password'))
-            ->count();
+            ->select('id')->first();
 
-        if ($count == 1) {
-            $token = JWTToken::createToken($request->input('email'));
+        if ($count !== null) {
+            $token = JWTToken::createToken($request->input('email'), $count->id);
             return response()->json([
                 'status' => 'success',
-                'message' => 'User login successfully',
-                'token' => $token
-            ], 200);
+                'message' => 'User login successfully'
+            ], 200)->cookie('token', $token, 60 * 24 * 30);
         } else {
             return response()->json([
                 'status' => 'error',
@@ -132,9 +125,8 @@ class UserController extends Controller
             $token = JWTToken::createTokenForSetPassword($email);
             return response()->json([
                 'status' => 'success',
-                'message' => 'OTP verified successfully',
-                'token' => $token
-            ], 200);
+                'message' => 'OTP verified successfully'
+            ], 200)->cookie('token', $token, 60 * 24 * 30);
         } else {
             return response()->json([
                 'status' => 'Failed',
@@ -161,6 +153,12 @@ class UserController extends Controller
                 'message' => 'Something went wrong'
             ], 200);
         }
+    }
+
+    // User Logout function
+    public function logout()
+    {
+        return redirect('/user-login')->cookie('token', '', -1);
     }
 
 }

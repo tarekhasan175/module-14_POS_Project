@@ -29,7 +29,7 @@
                 successToast(res.data['message'])
                 sessionStorage.setItem('email', email);
                 setTimeout(function (){
-                    window.location.href = '/verifyOtp';
+                    window.location.href = '/verify-otp';
                 }, 1000)
             }
             else{
