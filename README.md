@@ -1,9 +1,9 @@
-# NexusNova Booking System (NBS)
+# Point Of Sale (POS)
 
 ## How to use it
 
-1. Run git clone https://github.com/masumbillah21/NBS_Booking_System
-2. Run cd NBS_Booking_System
+1. Run git clone https://github.com/tarekhasan175/module-14_POS_Project.git
+2. Run cd `module-14_POS_Project`
 3. Run `npm install`
 4. Run `composer install`
 5. Run `cp .env.example .env`
